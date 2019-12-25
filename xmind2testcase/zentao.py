@@ -18,7 +18,7 @@ def xmind_to_zentao_csv_file(xmind_file):
     logging.info('Start converting XMind file(%s) to zentao file...', xmind_file)
     testcases = get_xmind_testcase_list(xmind_file)
 
-    fileheader = ["所属模块", "用例标题", "前置条件", "步骤", "预期", "关键词", "优先级", "用例类型", "适用阶段"]
+    fileheader = ["所属模块", "相关需求", "用例标题", "前置条件", "步骤", "预期", "关键词", "优先级", "用例类型", "适用阶段", "用例状态"]
     zentao_testcase_rows = [fileheader]
     for testcase in testcases:
         row = gen_a_testcase_row(testcase)
@@ -39,6 +39,7 @@ def xmind_to_zentao_csv_file(xmind_file):
 
 def gen_a_testcase_row(testcase_dict):
     case_module = gen_case_module(testcase_dict['suite'])
+    case_requirement = ''
     case_title = testcase_dict['name']
     case_precontion = testcase_dict['preconditions']
     case_step, case_expected_result = gen_case_step_and_expected_result(testcase_dict['steps'])
@@ -46,7 +47,8 @@ def gen_a_testcase_row(testcase_dict):
     case_priority = gen_case_priority(testcase_dict['importance'])
     case_type = gen_case_type(testcase_dict['execution_type'])
     case_apply_phase = '迭代测试'
-    row = [case_module, case_title, case_precontion, case_step, case_expected_result, case_keyword, case_priority, case_type, case_apply_phase]
+    case_status = ''
+    row = [case_module, case_requirement, case_title, case_precontion, case_step, case_expected_result, case_keyword, case_priority, case_type, case_apply_phase, case_status]
     return row
 
 
@@ -85,7 +87,7 @@ def gen_case_type(case_type):
     if case_type in mapping.keys():
         return mapping[case_type]
     else:
-        return '手动'
+        return '功能测试'
 
 
 if __name__ == '__main__':
