@@ -4,6 +4,7 @@ import csv
 import logging
 import os
 from xmind2testcase.utils import get_xmind_testcase_list, get_absolute_path
+from openpyxl import Workbook
 
 """
 Convert XMind fie to Zentao testcase csv file 
@@ -29,12 +30,24 @@ def xmind_to_zentao_csv_file(xmind_file):
         logging.info('The zentao csv file already exists, return it directly: %s', zentao_file)
         return zentao_file
 
+    zentao_xlsx_file = xmind_file[:-6] + '.xlsx'
+    if os.path.exists(zentao_xlsx_file):
+        logging.info('The zentao xlsx file already exists, return it directly: %s', zentao_xlsx_file)
+        return zentao_xlsx_file
+
     with open(zentao_file, 'w', encoding='utf8') as f:
         writer = csv.writer(f)
         writer.writerows(zentao_testcase_rows)
         logging.info('Convert XMind file(%s) to a zentao csv file(%s) successfully!', xmind_file, zentao_file)
 
-    return zentao_file
+    wb = Workbook()
+    ws = wb.active
+    with open(zentao_file, 'r') as f:
+        for row in csv.reader(f):
+            ws.append(row)
+    wb.save(zentao_xlsx_file)
+
+    return zentao_xlsx_file
 
 
 def gen_a_testcase_row(testcase_dict):
