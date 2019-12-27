@@ -4,6 +4,6 @@ __keywords__ = 'xmind2testCase, testcase, test, testing, xmind, 思维导图, XM
 __url__ = 'https://github.com/interchen/xmind2testcase'
 __author__ = 'interchen'
 __author_email__ = 'inter.chen@gmail.com'
-__version__ = '1.3.2'
+__version__ = '1.3.3'
 __license__ = 'MIT'
 __cake__ = u'\u2728 \U0001f370 \u2728'

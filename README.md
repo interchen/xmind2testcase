@@ -565,6 +565,9 @@ v1.3.0
 
 v1.3.2
 1、导出 xlsx 格式的禅道用例
+
+v1.3.3
+1、install required 添加 openpyxl
 ```
 
 
